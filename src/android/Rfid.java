@@ -233,12 +233,15 @@ public class Rfid extends CordovaPlugin implements DFRfid {
                               if(cardIDBytes[17] < 0){
                                 temp = cardIDBytes[17] + 256;
                               }else{
-                                temp = cardIDBytes[12];
+                                temp = cardIDBytes[17];
                               }
                               if(cardIDBytes[18] < 0){
-                                temp = cardIDBytes[18] + 256 + step*256;
+                                temp = cardIDBytes[18] + 256 + temp*256;
                               }else{
-                                temp = cardIDBytes[18];
+                                temp = cardIDBytes[18] + temp*256;
+                              }
+                              if(temp > 30000){
+                                temp = temp - 65536;
                               }
                             }
                             String cardID = new String(tagno.toString() + "|" + step + "|" + temp);
